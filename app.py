@@ -11,8 +11,8 @@ app = Flask(__name__)
 app.wsgi_app = WhiteNoise(app.wsgi_app, root='static/', prefix='static/')
 
 # Load CORS origins from environment variable
-allowed_origins = os.getenv("DEEPSHIELD_ALLOWED_ORIGINS", "*").split(",")
-CORS(app, origins=allowed_origins)
+# For debugging, we allow all. Change back to os.getenv("DEEPSHIELD_ALLOWED_ORIGINS", "*") for security later.
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/')
 def home():
