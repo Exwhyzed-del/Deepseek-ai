@@ -1,3 +1,7 @@
+import { CONFIG } from './config.js';
+
+console.log("DeepShield Service Worker starting with config:", CONFIG);
+
 chrome.runtime.onInstalled.addListener(() => {
   console.log("DeepShield Unified installed");
   chrome.contextMenus.create({
@@ -92,7 +96,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 async function verifyNews(text) {
   try {
-    const response = await fetch("http://127.0.0.1:5000/analyze-news", {
+    const response = await fetch(`${CONFIG.API_BASE_URL}/analyze-news`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -114,7 +118,7 @@ async function verifyNews(text) {
 
 async function detectImage(imageUrl) {
   try {
-    const response = await fetch("http://127.0.0.1:5000/detect-image", {
+    const response = await fetch(`${CONFIG.API_BASE_URL}/detect-image`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -148,7 +152,7 @@ async function extractTextFromImage(imageDataUrl) {
       formData.append("language", language);
       formData.append("isOverlayRequired", "false");
       formData.append("OCREngine", "2");
-      formData.append("apikey", "helloworld");
+      formData.append("apikey", CONFIG.OCR_API_KEY);
 
       const response = await fetch("https://api.ocr.space/parse/image", {
         method: "POST",

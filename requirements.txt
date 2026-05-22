@@ -2,11 +2,13 @@ flask
 flask-cors
 torch
 torchvision
-opencv-python
+opencv-python-headless
 numpy
 requests
 beautifulsoup4
 lxml
-librosa
 scikit-learn
-tensorflow
+gunicorn
+python-dotenv
+google-auth
+google-auth-oauthlib

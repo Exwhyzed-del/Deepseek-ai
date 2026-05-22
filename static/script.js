@@ -10,37 +10,7 @@ var totalCount = 0;
 var chart = null;
 
 // LOGIN / DASHBOARD FLOW
-function switchTab(mode) {
-    var signinForm = document.getElementById("signinForm");
-    var signupForm = document.getElementById("signupForm");
-    var buttons = document.querySelectorAll(".tab-btn");
-
-    buttons.forEach(function (btn) {
-        btn.classList.remove("active");
-    });
-
-    if (mode === "signin") {
-        signinForm.style.display = "block";
-        signupForm.style.display = "none";
-        buttons[0].classList.add("active");
-    } else {
-        signinForm.style.display = "none";
-        signupForm.style.display = "block";
-        buttons[1].classList.add("active");
-    }
-}
-
-function launch() {
-    document.getElementById("loginPage").classList.add("hidden");
-    document.getElementById("dashPage").classList.remove("hidden");
-    updateClock();
-    setInterval(updateClock, 1000);
-}
-
-function logout() {
-    document.getElementById("dashPage").classList.add("hidden");
-    document.getElementById("loginPage").classList.remove("hidden");
-}
+// (Removed switchTab, launch, and logout as login page is removed)
 
 function updateClock() {
     var clock = document.getElementById("clock");
@@ -54,7 +24,6 @@ function updateClock() {
 function showSection(sectionId, clickedItem) {
     document.getElementById("dashboardSection").classList.add("hidden-section");
     document.getElementById("newsSection").classList.add("hidden-section");
-    document.getElementById("audioSection").classList.add("hidden-section");
 
     document.querySelectorAll(".nav-item").forEach(function (item) {
         item.classList.remove("active");
@@ -411,93 +380,6 @@ function clearNews() {
     document.getElementById("newsResult").innerHTML = "";
 }
 
-// AUDIO
-function openAudioFile() {
-    document.getElementById("audioFileInput").click();
-}
-
-var audioFileInput = document.getElementById("audioFileInput");
-if (audioFileInput) {
-    audioFileInput.addEventListener("change", function () {
-        var file = audioFileInput.files[0];
-        if (file) {
-            analyzeAudioFile(file);
-        }
-    });
-}
-
-function analyzeAudioFile(file) {
-    var formData = new FormData();
-    formData.append("audio", file);
-
-    var progress = document.getElementById("audioAnalysisProgress");
-    var progressBar = document.getElementById("audioProgressBar");
-    var result = document.getElementById("audioResult");
-
-    progress.classList.remove("hidden-section");
-    result.classList.add("hidden-section");
-    progressBar.style.width = "0%";
-
-    // Fake progress animation
-    var width = 0;
-    var interval = setInterval(function() {
-        if (width >= 90) {
-            clearInterval(interval);
-        } else {
-            width += 5;
-            progressBar.style.width = width + "%";
-        }
-    }, 200);
-
-    fetch("/analyze-audio", {
-        method: "POST",
-        body: formData
-    })
-    .then(function (res) {
-        return res.json();
-    })
-    .then(function (data) {
-        clearInterval(interval);
-        progressBar.style.width = "100%";
-        setTimeout(function() {
-            progress.classList.add("hidden-section");
-            renderAudioResult(data, file.name);
-        }, 500);
-    })
-    .catch(function (err) {
-        clearInterval(interval);
-        console.error(err);
-        progress.classList.add("hidden-section");
-        result.classList.remove("hidden-section");
-        result.innerHTML = "<div class='news-verdict-box red'><div class='news-verdict-title'>Analysis Error</div><div class='news-verdict-sub'>Failed to analyze audio file.</div></div>";
-    });
-}
-
-function renderAudioResult(data, fileName) {
-    var result = document.getElementById("audioResult");
-    result.classList.remove("hidden-section");
-
-    var prediction = data.prediction || "unknown";
-    var confidence = Math.round((data.confidence || 0) * 100);
-    var isReal = prediction.toLowerCase() === "real";
-    var colorClass = isReal ? "green" : "red";
-    var labelText = isReal ? "VERIFIED REAL" : "AI GENERATED (DEEPFAKE)";
-
-    result.innerHTML =
-        "<div class='news-verdict-box " + colorClass + "'>" +
-            "<div class='news-verdict-title'>" + labelText + "</div>" +
-            "<div class='news-verdict-sub'>Confidence Score: " + confidence + "%</div>" +
-        "</div>" +
-        "<div class='news-block'>" +
-            "<div class='news-block-title'>File Analyzed</div>" +
-            "<div class='news-coverage'>" + escapeHtml(fileName) + "</div>" +
-        "</div>" +
-        "<div class='news-block'>" +
-            "<div class='news-block-title'>Technical Note</div>" +
-            "<div class='section-sub'>Analysis performed using MFCC feature extraction and deep learning classification.</div>" +
-        "</div>";
-}
-
 // HELPERS
 function escapeHtml(value) {
     return String(value)
@@ -508,7 +390,12 @@ function escapeHtml(value) {
         .replace(/'/g, "&#039;");
 }
 
+// GOOGLE AUTH
+// (Auth logic removed as login page is removed)
+
 // INIT
-window.addEventListener("load", function () {
+window.onload = function () {
+    updateClock();
+    setInterval(updateClock, 1000);
     updateChart();
-});
+};

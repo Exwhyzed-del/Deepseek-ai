@@ -12,8 +12,11 @@ env/
 
 # Models & Data
 temp.jpg
+temp_audio_file
+dataset/
+# Keep models in Git if < 100MB
 # *.pth
-# *.pt
+# *.h5
 
 # OS
 .DS_Store

@@ -4,6 +4,7 @@ from torchvision import models, transforms
 import cv2
 import numpy as np
 import requests
+import os
 
 # =========================
 # LOAD MODEL
@@ -11,7 +12,9 @@ import requests
 model = models.efficientnet_b0(pretrained=False)
 model.classifier[1] = nn.Linear(model.classifier[1].in_features, 3)
 
-model.load_state_dict(torch.load("deepfake_model.pth", map_location="cpu"))
+MODEL_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "deepfake_model.pth")
+if os.path.exists(MODEL_PATH):
+    model.load_state_dict(torch.load(MODEL_PATH, map_location="cpu"))
 model.eval()
 
 # =========================
@@ -30,7 +33,7 @@ labels_map = ["REAL", "FAKE", "FILTERED"]
 # =========================
 API_URL = "https://api-inference.huggingface.co/models/umm-maybe/AI-image-detector"
 HEADERS = {
-    "Authorization": "Bearer YOUR_API_KEY"
+    "Authorization": f"Bearer {os.getenv('HF_API_KEY', 'YOUR_API_KEY')}"
 }
 
 # =========================

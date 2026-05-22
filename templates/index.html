@@ -19,113 +19,8 @@
         <div class="orb orb3"></div>
     </div>
 
-    <!-- LOGIN PAGE -->
-    <div class="page" id="loginPage">
-        <div class="auth-shell">
-            <div class="shield-hero">
-                <div class="shield-rings">
-                    <div class="ring ring1"></div>
-                    <div class="ring ring2"></div>
-                    <div class="ring ring3"></div>
-                </div>
-
-                <svg class="shield-svg" width="110" height="130" viewBox="0 0 100 120" aria-hidden="true">
-                    <defs>
-                        <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#00f5ff"/>
-                            <stop offset="50%" style="stop-color:#6c2bd9"/>
-                            <stop offset="100%" style="stop-color:#00ff88"/>
-                        </linearGradient>
-                        <filter id="shieldGlow">
-                            <feGaussianBlur stdDeviation="3" result="blur"/>
-                            <feMerge>
-                                <feMergeNode in="blur"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                    </defs>
-                    <path d="M50 8 L88 22 L88 58 C88 80 70 100 50 112 C30 100 12 80 12 58 L12 22 Z"
-                          fill="url(#shieldGradient)" opacity="0.15" filter="url(#shieldGlow)"/>
-                    <path d="M50 8 L88 22 L88 58 C88 80 70 100 50 112 C30 100 12 80 12 58 L12 22 Z"
-                          fill="none" stroke="url(#shieldGradient)" stroke-width="2"/>
-                    <path d="M50 25 L73 34 L73 57 C73 72 63 84 50 92 C37 84 27 72 27 57 L27 34 Z"
-                          fill="url(#shieldGradient)" opacity="0.1"/>
-                    <polyline points="36,58 46,68 66,45"
-                              fill="none"
-                              stroke="#00f5ff"
-                              stroke-width="3"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              filter="url(#shieldGlow)"/>
-                </svg>
-            </div>
-
-            <div class="brand-title">DEEPSHIELD</div>
-            <div class="brand-sub">AI Deepfake Detection Platform</div>
-
-            <div class="login-card">
-                <div class="scan-line"></div>
-
-                <div class="tabs">
-                    <button class="tab-btn active" onclick="switchTab('signin')">Sign In</button>
-                    <button class="tab-btn" onclick="switchTab('signup')">Get Started</button>
-                </div>
-
-                <div id="signinForm">
-                    <div class="field">
-                        <label>Email Address</label>
-                        <input type="email" id="signinEmail" placeholder="operator@deepshield.ai">
-                    </div>
-                    <div class="field">
-                        <label>Password</label>
-                        <input type="password" id="signinPassword" placeholder="••••••••••••">
-                    </div>
-                    <div class="auth-row">
-                        <label class="remember-label">
-                            <input type="checkbox">
-                            <span>Remember device</span>
-                        </label>
-                        <span class="auth-link">Secure local access</span>
-                    </div>
-                    <button class="btn-primary" onclick="launch()">INITIATE ACCESS</button>
-                </div>
-
-                <div id="signupForm" class="hidden-auth">
-                    <div class="field">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="John Operator">
-                    </div>
-                    <div class="field">
-                        <label>Email Address</label>
-                        <input type="email" placeholder="you@company.com">
-                    </div>
-                    <div class="field">
-                        <label>Organization</label>
-                        <input type="text" placeholder="Your Organization">
-                    </div>
-                    <div class="field">
-                        <label>Password</label>
-                        <input type="password" placeholder="Create strong password">
-                    </div>
-                    <button class="btn-primary" onclick="launch()">DEPLOY SHIELD</button>
-                </div>
-
-                <div class="divider">OR CONTINUE WITH</div>
-
-                <div class="social-btns">
-                    <button class="social-btn" onclick="launch()">🔷 Microsoft</button>
-                    <button class="social-btn" onclick="launch()">🔴 Google</button>
-                </div>
-
-                <p class="auth-footnote">
-                    Protected by AES-256 · Secure Local Workflow · Browser-integrated scanning
-                </p>
-            </div>
-        </div>
-    </div>
-
     <!-- DASHBOARD PAGE -->
-    <div class="page hidden" id="dashPage">
+    <div class="page" id="dashPage">
         <div class="sidebar">
             <div class="sidebar-logo">
                 <div class="name">DEEPSHIELD</div>
@@ -146,11 +41,6 @@
                         <span>News Guard</span>
                     </div>
 
-                    <div class="nav-item" data-target="audioSection" onclick="showSection('audioSection', this)">
-                        <span class="nav-icon">🎙️</span>
-                        <span>Audio Guard</span>
-                    </div>
-
                     <div class="nav-item" onclick="toggleExtensionModal()">
                         <span class="nav-icon">🧩</span>
                         <span>Add to Chrome</span>
@@ -165,11 +55,6 @@
                         <div class="name">DeepShield User</div>
                         <div class="role">Website Access</div>
                     </div>
-                </div>
-
-                <div class="nav-item signout-item" onclick="logout()">
-                    <span class="nav-icon">↩</span>
-                    <span>Sign Out</span>
                 </div>
             </div>
         </div>
@@ -334,49 +219,6 @@
 
                 <div id="newsResult" class="card full-span-card hidden-section"></div>
             </div>
-
-            <!-- AUDIO -->
-            <div class="content-section hidden-section" id="audioSection">
-                <div class="topbar">
-                    <div>
-                        <div class="page-title">DeepShield <span>Audio Guard</span></div>
-                        <div class="page-subtitle">Detect AI-generated speech and deepfake audio using your integrated analyzer</div>
-                    </div>
-                    <div class="topbar-right">
-                        <div class="status-pill blue-pill">
-                            <div class="status-dot blue-dot"></div>
-                            Audio Analysis Ready
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card full-span-card">
-                    <div class="section-title">Analyze Audio Authenticity</div>
-                    <div class="section-sub">
-                        Upload an audio file (MP3, WAV, M4A) to verify if it is real or AI-generated. This uses your newly integrated
-                        <code>/analyze-audio</code> route.
-                    </div>
-
-                    <div class="upload-zone" id="audioDropArea">
-                        <div class="upload-icon">🎵</div>
-                        <div class="upload-text">Drop audio file here to analyze</div>
-                        <div class="upload-sub">Supports MP3, WAV, M4A</div>
-                        <input type="file" id="audioFileInput" hidden accept="audio/*">
-                        <button class="action-btn" onclick="openAudioFile()">Select Audio File</button>
-                    </div>
-
-                    <div id="audioAnalysisProgress" class="hidden-section">
-                        <div class="progress-container">
-                            <div class="progress-bar-label">Analyzing Audio...</div>
-                            <div class="progress-bar-bg">
-                                <div id="audioProgressBar" class="progress-bar-fill"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="audioResult" class="hidden-section result-display"></div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -390,17 +232,10 @@
 
             <div class="extension-options">
                 <div class="extension-option-card">
-                    <div class="option-icon">🧩</div>
+                    <div class="option-icon">🛡️</div>
                     <h4>DeepShield Unified</h4>
                     <p>Detect AI images and verify news authenticity in real-time while browsing.</p>
                     <div class="folder-path">Folder: <code>unified_extension</code></div>
-                </div>
-
-                <div class="extension-option-card">
-                    <div class="option-icon">🎙️</div>
-                    <h4>DeepShield Audio</h4>
-                    <p>Detect deepfake audio in your tabs or from uploaded files instantly.</p>
-                    <div class="folder-path">Folder: <code>audio_extension</code></div>
                 </div>
             </div>
 
@@ -417,7 +252,7 @@
                     <div class="step-num">2</div>
                     <div class="step-text">
                         <h4>Load Unpacked</h4>
-                        <p>Click <strong>Load unpacked</strong> and select either the <code>unified_extension</code> or <code>audio_extension</code> folder.</p>
+                        <p>Click <strong>Load unpacked</strong> and select the <code>unified_extension</code> folder.</p>
                     </div>
                 </div>
 
