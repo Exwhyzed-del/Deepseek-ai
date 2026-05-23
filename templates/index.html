@@ -226,7 +226,7 @@
     <div id="extensionModal" class="modal hidden-section">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Choose Extension for Installation</h3>
+                <h3>Install DeepShield Extension</h3>
                 <div class="close-modal" onclick="toggleExtensionModal()">×</div>
             </div>
 
@@ -235,7 +235,14 @@
                     <div class="option-icon">🛡️</div>
                     <h4>DeepShield Unified</h4>
                     <p>Detect AI images and verify news authenticity in real-time while browsing.</p>
-                    <div class="folder-path">Folder: <code>unified_extension</code></div>
+                    <div class="download-container" style="display: flex; gap: 10px; margin-top: 15px;">
+                        <a href="/static/extension.zip" download class="action-btn" style="text-decoration: none; flex: 1; text-align: center; font-size: 13px;">
+                            📥 Download ZIP
+                        </a>
+                        <a href="https://github.com/Exwhyzed-del/Deepseek-ai" target="_blank" class="secondary-btn" style="text-decoration: none; flex: 1; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                            <span>📂</span> GitHub Repo
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -243,30 +250,42 @@
                 <div class="step">
                     <div class="step-num">1</div>
                     <div class="step-text">
-                        <h4>Enable Developer Mode</h4>
-                        <p>Open <code>chrome://extensions/</code> and enable Developer mode in the top right.</p>
+                        <h4>Download & Extract</h4>
+                        <p>Download the ZIP file above and extract it to a folder on your computer.</p>
                     </div>
                 </div>
 
                 <div class="step">
                     <div class="step-num">2</div>
                     <div class="step-text">
-                        <h4>Load Unpacked</h4>
-                        <p>Click <strong>Load unpacked</strong> and select the <code>unified_extension</code> folder.</p>
+                        <h4>Open Extensions Page</h4>
+                        <p>Open <code>chrome://extensions/</code> in your Chrome browser.</p>
                     </div>
                 </div>
 
                 <div class="step">
                     <div class="step-num">3</div>
                     <div class="step-text">
-                        <h4>Start Analysis</h4>
-                        <p>Use the extensions to protect your digital environment from deepfakes and misinformation.</p>
+                        <h4>Enable Developer Mode</h4>
+                        <p>Turn on the <strong>Developer mode</strong> switch in the top right corner.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <div class="step-text">
+                        <h4>Load Unpacked</h4>
+                        <p>Click <strong>Load unpacked</strong> and select the extracted <code>unified_extension</code> folder.</p>
                     </div>
                 </div>
             </div>
 
+            <div class="modal-note" style="margin-top: 20px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 12px; color: rgba(255,255,255,0.6);">
+                <strong>Note:</strong> Chrome does not allow direct auto-installation from websites for security. These steps are required for manual installation during testing.
+            </div>
+
             <div class="modal-actions">
-                <button class="action-btn full-btn" onclick="toggleExtensionModal()">Got it!</button>
+                <button class="secondary-btn full-btn" onclick="toggleExtensionModal()">Close</button>
             </div>
         </div>
     </div>
