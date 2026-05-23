@@ -95,43 +95,67 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 async function verifyNews(text) {
+  console.log("Attempting to verify news at:", `${CONFIG.API_BASE_URL}/analyze-news`);
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s timeout for Render cold start
+
     const response = await fetch(`${CONFIG.API_BASE_URL}/analyze-news`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        text: text
-      })
+      body: JSON.stringify({ text: text }),
+      signal: controller.signal
     });
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Server responded with error:", response.status, errorText);
+      throw new Error(`Server Error (${response.status}). Please ensure the backend is running.`);
+    }
+
     const data = await response.json();
+    console.log("Verification successful:", data);
     if (!data.success) throw new Error(data.error || "Verification failed");
     return data.result;
   } catch (err) {
     console.error("Background News Verification Error:", err);
+    if (err.name === 'AbortError') throw new Error("Request timed out. The server might be waking up, please try again in a moment.");
     throw err;
   }
 }
 
 async function detectImage(imageUrl) {
+  console.log("Attempting to detect image at:", `${CONFIG.API_BASE_URL}/detect-image`);
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000);
+
     const response = await fetch(`${CONFIG.API_BASE_URL}/detect-image`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        image_url: imageUrl
-      })
+      body: JSON.stringify({ image_url: imageUrl }),
+      signal: controller.signal
     });
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    return await response.json();
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      console.error("Server responded with error:", response.status);
+      throw new Error(`Server Error (${response.status})`);
+    }
+    
+    const result = await response.json();
+    console.log("Detection successful:", result);
+    return result;
   } catch (err) {
     console.error("Background Detection Error:", err);
+    if (err.name === 'AbortError') throw new Error("Timeout");
     throw err;
   }
 }
